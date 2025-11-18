@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Buy Book – Kora Books</title>
+
+<style>
+    body {
+        margin: 0;
+        font-family: 'Poppins', sans-serif;
+        background: #fafafa;
+    }
+
+    header {
+        background: #26264F;
+        color: white;
+        padding: 25px 50px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    header .logo {
+        font-size: 30px;
+        font-weight: 700;
+    }
+
+    .nav-links ul {
+        display: flex;
+        list-style: none;
+        gap: 40px;
+    }
+
+    .nav-links ul li {
+        cursor: pointer;
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    /* ----------- BOOK VIEW LAYOUT ----------- */
+    .container {
+        display: flex;
+        width: 80%;
+        margin: 60px auto;
+        gap: 60px;
+
+        justify-content: center;
+        align-items: center;
+    }
+
+    .book-image {
+        width: 50%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .book-image img {
+        width: 85%;
+        height: auto;
+        border-radius: 12px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    }
+
+    .book-info {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .book-info h1 {
+        font-size: 38px;
+        margin: 0 0 15px;
+    }
+
+    .price-tag {
+        font-size: 28px;
+        color: #2c2c54;
+        font-weight: bold;
+        margin-bottom: 25px;
+    }
+
+    .book-desc {
+        font-size: 18px;
+        line-height: 1.7;
+        margin-bottom: 40px;
+    }
+
+    .buy-button {
+        background: #28a745;
+        padding: 18px 30px;
+        font-size: 22px;
+        color: white;
+        border: none;
+        width: 260px;
+        border-radius: 10px;
+        cursor: pointer;
+        font-weight: 600;
+    }
+
+    .buy-button:hover {
+        opacity: 0.8;
+    }
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header>
+    <div class="logo">Kora Books</div>
+
+    <div class="nav-links">
+        <ul>
+            <li onclick="window.location='index.html'">Home</li>
+            <li onclick="window.location='sell.html'">Sell Books</li>
+            <li onclick="window.location='notes.html'">Notes</li>
+        </ul>
+    </div>
+</header>
+
+<!-- MAIN BOOK CONTAINER -->
+<div class="container" id="bookView"></div>
+
+<script>
+// Read the ID of the book from URL
+const urlParams = new URLSearchParams(window.location.search);
+const bookIndex = urlParams.get("book");
+
+// Get all books
+const books = JSON.parse(localStorage.getItem("books")) || [];
+const book = books[bookIndex];
+
+// If book doesn't exist
+if (!book) {
+    document.getElementById("bookView").innerHTML = "<h2>Book not found.</h2>";
+} else {
+    document.getElementById("bookView").innerHTML = `
+        <div class="book-image">
+            <img src="${book.image}">
+        </div>
+
+        <div class="book-info">
+            <h1>${book.title}</h1>
+            <div class="price-tag">₹${book.price}</div>
+
+            <div class="book-desc">
+                BUY NOW!!!<br>
+                You will love this book ❤️<br><br>
+                Are you sure you want to buy this book?
+            </div>
+
+            <button class="buy-button" onclick="alert('Purchase Complete!')">
+                Buy Now
+            </button>
+        </div>
+    `;
+}
+</script>
+
+</body>
+</html>

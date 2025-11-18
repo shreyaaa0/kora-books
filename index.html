@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Kora Books</title>
+
+<style>
+    body {
+        margin: 0;
+        font-family: 'Poppins', sans-serif;
+        background: #fafafa;
+        color: #333;
+    }
+
+    /* ---------------- HEADER ---------------- */
+    header {
+        background: #26264F;
+        color: white;
+        padding: 25px 50px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    header .logo {
+        font-size: 30px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+    }
+
+    .nav-links ul {
+        display: flex;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .nav-links ul li {
+        margin-left: 40px;
+        font-size: 18px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.2s ease;
+    }
+
+    .nav-links ul li:hover {
+        opacity: 0.6;
+    }
+
+    /* ---------------- HERO ---------------- */
+    .hero {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 60px 50px;
+        background: #fff;
+    }
+
+    .hero-text {
+        max-width: 600px;
+    }
+
+    .hero-text h1 {
+        font-size: 40px;
+        font-weight: 700;
+    }
+
+    .hero-text p {
+        margin: 10px 0 20px;
+        font-size: 16px;
+        line-height: 1.6;
+    }
+
+    /* ---------------- ATTRACTIVE BUTTON ---------------- */
+    .explore-btn {
+        background: linear-gradient(135deg, #ff9800, #ff5722);
+        padding: 14px 32px;
+        border: none;
+        font-size: 18px;
+        font-weight: 600;
+        color: white;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: 0.3s ease;
+        box-shadow: 0 4px 15px rgba(255, 87, 34, 0.4);
+    }
+
+    .explore-btn:hover {
+        transform: scale(1.07);
+        box-shadow: 0 6px 22px rgba(255, 87, 34, 0.6);
+    }
+
+    .hero-img img {
+        width: 420px;
+        border-radius: 10px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    }
+</style>
+
+</head>
+<body>
+
+<header>
+    <div class="logo">Kora Books</div>
+
+    <div class="nav-links">
+        <ul>
+            <li onclick="window.location='index.html'">Home</li>
+            <li onclick="window.location='sell.html'">Sell Books</li>
+            <li onclick="window.location='notes.html'">Notes</li>
+        </ul>
+    </div>
+</header>
+
+<section class="hero">
+    <div class="hero-text">
+        <h1>Buy & Sell Books Easily</h1>
+        <p>Find second-hand books, study notes, exam materials, and more — all in one place.</p>
+
+        <!-- NEW ATTRACTIVE BUTTON -->
+        <button class="explore-btn" onclick="window.location='preview.html'">
+            Explore Now →
+        </button>
+    </div>
+
+    <div class="hero-img">
+        <img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f" alt="Books">
+    </div>
+</section>
+
+</body>
+</html>

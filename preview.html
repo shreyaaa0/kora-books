@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Books – Kora Books</title>
+
+<style>
+    body {
+        margin: 0;
+        font-family: 'Poppins', sans-serif;
+        background: #fafafa;
+    }
+    header {
+        background: #26264F;
+        color: white;
+        padding: 25px 50px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    header .logo {
+        font-size: 30px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+    }
+
+    .nav-links ul {
+        display: flex;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .nav-links ul li {
+        margin-left: 40px;
+        font-size: 18px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.2s ease;
+    }
+
+    .nav-links ul li:hover {
+        opacity: 0.6;
+    }
+
+    .layout {
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+        flex-wrap: wrap;
+        margin-top: 60px;
+        padding-bottom: 40px;
+    }
+
+    .book-card, .plus-card {
+        width: 250px;
+        height: 420px;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        text-align: center;
+        padding: 15px;
+    }
+
+    .book-card img {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+
+    .title {
+        margin-top: 10px;
+        font-weight: bold;
+    }
+    .price {
+        margin-top: 5px;
+        color: #2c2c54;
+        font-weight: bold;
+    }
+
+    /* BUY BUTTON */
+    .buy-btn {
+        margin-top: 12px;
+        background: #1e88e5;
+        color: white;
+        border: none;
+        padding: 10px;
+        width: 100%;
+        cursor: pointer;
+        border-radius: 6px;
+        font-weight: 600;
+        transition: 0.2s ease;
+    }
+
+    .buy-btn:hover {
+        opacity: 0.8;
+    }
+
+    /* DELETE BUTTON */
+    .delete-btn {
+        margin-top: 8px;
+        background: #e63946;
+        color: white;
+        border: none;
+        padding: 10px;
+        width: 100%;
+        cursor: pointer;
+        border-radius: 6px;
+        font-weight: 600;
+    }
+
+    .delete-btn:hover {
+        opacity: 0.8;
+    }
+
+    .plus-card {
+        font-size: 80px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        color: #2c2c54;
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <div class="logo">Kora Books</div>
+
+    <div class="nav-links">
+        <ul>
+            <li onclick="window.location='index.html'">Home</li>
+            <li onclick="window.location='sell.html'">Sell Books</li>
+            <li onclick="window.location='notes.html'">Notes</li>
+        </ul>
+    </div>
+</header>
+
+<div class="layout" id="booksContainer"></div>
+
+<script>
+let books = JSON.parse(localStorage.getItem("books")) || [];
+let container = document.getElementById("booksContainer");
+
+function loadBooks() {
+    container.innerHTML = "";
+
+    books.forEach((book, index) => {
+        container.innerHTML += `
+            <div class='book-card'>
+                <img src='${book.image}'>
+                <div class='title'>${book.title}</div>
+                <div class='price'>$${book.price}</div>
+
+                <button class="buy-btn" onclick="buyBook(${index})">Buy</button>
+
+                <button class="delete-btn" onclick="deleteBook(${index})">Delete</button>
+            </div>
+        `;
+    });
+
+    container.innerHTML += `
+        <div class="plus-card" onclick="window.location='sell.html'">+</div>
+    `;
+}
+
+function buyBook(index) {
+    // redirect to buy page
+    window.location = "buy.html?book=" + index;
+}
+
+function deleteBook(index) {
+    if (confirm("Are you sure you want to delete this book?")) {
+        books.splice(index, 1);
+        localStorage.setItem("books", JSON.stringify(books));
+        loadBooks();
+    }
+}
+
+loadBooks();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kora Books – Notes</title>
+
+<style>
+    body {
+        margin: 0;
+        font-family: 'Poppins', sans-serif;
+        background: #fafafa;
+    }
+
+    /* HEADER */
+    header {
+        background: #26264F;
+        color: white;
+        padding: 25px 50px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    header .logo {
+        font-size: 30px;
+        font-weight: 700;
+    }
+
+    header ul {
+        display: flex;
+        list-style: none;
+        gap: 40px;
+        margin: 0;
+        padding: 0;
+    }
+
+    header ul li {
+        font-size: 18px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.2s ease;
+    }
+
+    header ul li:hover {
+        opacity: 0.7;
+    }
+
+    /* MAIN LAYOUT */
+    .container {
+        display: flex;
+        margin: 40px;
+        gap: 30px;
+    }
+
+    /* LEFT INPUT BOX */
+    .left-box {
+        width: 40%;
+        background: white;
+        padding: 25px;
+        border-radius: 10px;
+        box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+    }
+
+    .left-box h2 {
+        margin-top: 0;
+    }
+
+    input, textarea {
+        width: 100%;
+        padding: 10px;
+        margin-top: 8px;
+        margin-bottom: 15px;
+        font-size: 15px;
+        border: 1px solid #bbb;
+        border-radius: 6px;
+    }
+
+    button {
+        width: 100%;
+        background: #26264F;
+        color: white;
+        border: none;
+        padding: 12px;
+        font-size: 16px;
+        border-radius: 6px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        opacity: 0.8;
+    }
+
+    /* RIGHT NOTES DISPLAY */
+    .right-box {
+        width: 60%;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 20px;
+    }
+
+    .note-card {
+        background: white;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        animation: pop 0.3s ease;
+    }
+
+    .note-card img {
+        width: 100%;
+        border-radius: 8px;
+        margin-bottom: 10px;
+    }
+
+    .note-card h3 {
+        margin: 0 0 5px;
+    }
+
+    @keyframes pop {
+        from { transform: scale(0.7); opacity: 0; }
+        to   { transform: scale(1); opacity: 1; }
+    }
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header>
+    <div class="logo">Kora Books</div>
+
+    <ul>
+        <li onclick="window.location='index.html'">Home</li>
+        <li onclick="window.location='sell.html'">Sell Books</li>
+        <li onclick="window.location='notes.html'">Notes</li>
+    </ul>
+</header>
+
+<!-- MAIN CONTENT -->
+<div class="container">
+
+    <!-- LEFT: Note Input -->
+    <div class="left-box">
+        <h2>Create a Note</h2>
+
+        <label>Note Title</label>
+        <input type="text" id="noteTitle" placeholder="Enter note title">
+
+        <label>Price</label>
+        <input type="number" id="notePrice" placeholder="Enter note price">
+
+        <label>Upload Note Image</label>
+        <input type="file" id="noteImage" accept="image/*">
+
+        <label>Description</label>
+        <textarea id="noteDesc" rows="5" placeholder="Enter note description"></textarea>
+
+        <button onclick="addNote()">Add Note</button>
+    </div>
+
+    <!-- RIGHT: Notes Display -->
+    <div class="right-box" id="notesContainer"></div>
+
+</div>
+
+<script>
+function addNote() {
+    const title = document.getElementById("noteTitle").value;
+    const price = document.getElementById("notePrice").value;
+    const desc = document.getElementById("noteDesc").value;
+    const imageFile = document.getElementById("noteImage").files[0];
+
+    if (!title || !price || !desc || !imageFile) {
+        alert("Please fill all fields and upload an image!");
+        return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = function(e) {
+        const imgURL = e.target.result;
+
+        const card = document.createElement("div");
+        card.classList.add("note-card");
+
+        card.innerHTML = `
+            <img src="${imgURL}">
+            <h3>${title}</h3>
+            <p><b>₹${price}</b></p>
+            <p>${desc}</p>
+        `;
+
+        document.getElementById("notesContainer").appendChild(card);
+
+        // Clear fields
+        document.getElementById("noteTitle").value = "";
+        document.getElementById("notePrice").value = "";
+        document.getElementById("noteDesc").value = "";
+        document.getElementById("noteImage").value = "";
+    };
+
+    reader.readAsDataURL(imageFile);
+}
+</script>
+
+</body>
+</html>

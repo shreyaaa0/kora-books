@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sell Books – Kora Books</title>
-
+<head>
 <style>
     body {
         margin: 0;
@@ -20,21 +19,17 @@
         align-items: center;
         box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     }
-
     header .logo {
         font-size: 30px;
         font-weight: 700;
         letter-spacing: 0.5px;
     }
-
-    /* NAV LINKS AS <li> BUTTONS */
     .nav-links ul {
         display: flex;
         list-style: none;
         margin: 0;
         padding: 0;
     }
-
     .nav-links ul li {
         margin-left: 40px;
         font-size: 18px;
@@ -42,12 +37,9 @@
         cursor: pointer;
         transition: 0.2s ease;
     }
-
     .nav-links ul li:hover {
         opacity: 0.6;
     }
-
-
     .container {
         width: 450px;
         margin: 40px auto;
@@ -72,7 +64,6 @@
 </style>
 </head>
 <body>
-
 <nav>
   <header>
     <div class="logo">Kora Books</div>
@@ -85,54 +76,39 @@
         </ul>
     </div>
 </header>
-
 <div class="container">
     <h2>Sell Your Book</h2>
-
     <label>Book Image</label>
     <input type="file" id="imageInput" accept="image/*">
-
     <label>Book Title</label>
     <input type="text" id="titleInput" placeholder="Enter book title">
-
     <label>Price</label>
     <input type="number" id="priceInput" placeholder="Enter price">
-
     <button onclick="submitBook()">Submit</button>
 </div>
-
 <script>
 function submitBook() {
     const title = document.getElementById("titleInput").value;
     const price = document.getElementById("priceInput").value;
     const imageFile = document.getElementById("imageInput").files[0];
-
     if (!title || !price || !imageFile) {
         alert("Please fill all fields.");
         return;
     }
-
     const reader = new FileReader();
-
     reader.onload = function(e) {
         const imageUrl = e.target.result;
-
         let books = JSON.parse(localStorage.getItem("books")) || [];
-
         books.push({
             title: title,
             price: price,
             image: imageUrl
         });
-
         localStorage.setItem("books", JSON.stringify(books));
-
         window.location = "preview.html";
     };
-
     reader.readAsDataURL(imageFile);
 }
 </script>
-
 </body>
 </html>
